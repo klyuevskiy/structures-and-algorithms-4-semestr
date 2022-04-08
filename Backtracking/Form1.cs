@@ -47,6 +47,11 @@ namespace Backtracking
         {
             grid.Rows.Clear();
 
+            grid.Rows.Add();
+
+            grid.Rows[0].Cells[0].Value = "Количество автобусов:";
+            grid.Rows[0].Cells[1].Value = buses.Count.ToString();
+
             foreach (Bus bus in buses)
             {
                 int rowIndex = grid.Rows.Add();

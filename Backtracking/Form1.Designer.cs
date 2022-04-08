@@ -52,10 +52,10 @@ namespace Backtracking
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.arrivalTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.busInterval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -274,15 +274,6 @@ namespace Backtracking
             this.dataGridView1.Size = new System.Drawing.Size(470, 203);
             this.dataGridView1.TabIndex = 0;
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Текстовые файлы(*.txt)|*.txt";
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.Filter = "Текстовые файлы(*.txt)|*.txt";
-            // 
             // arrivalTime
             // 
             this.arrivalTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -300,6 +291,15 @@ namespace Backtracking
             this.busInterval.HeaderText = "Интервал движения автобуса";
             this.busInterval.Name = "busInterval";
             this.busInterval.ReadOnly = true;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Текстовые файлы(*.txt)|*.txt";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "Текстовые файлы(*.txt)|*.txt";
             // 
             // Form1
             // 
