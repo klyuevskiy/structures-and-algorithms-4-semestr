@@ -30,8 +30,11 @@ namespace Backtracking
             return lastTime + Interval == time;
         }
 
-        public void AddTime(int time)
+        public bool AddTime(int time)
         {
+            if (!IsRightTime(time))
+                return false;
+
             // нет врямя прибьытия ставим его
             if (FirstArrivalTime == -1)
             {
@@ -47,6 +50,8 @@ namespace Backtracking
             {
                 lastTime = time;
             }
+
+            return true;
         }
 
         public void PopTime()

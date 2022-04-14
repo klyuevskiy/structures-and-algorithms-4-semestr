@@ -36,10 +36,8 @@ namespace Backtracking
                 int time = arrivalTimes[timePosition];
 
                 // к этому автобусу подходит время, пробуем его
-                if (bus.IsRightTime(time))
+                if (bus.AddTime(time))
                 {
-                    bus.AddTime(time);
-
                     // перебор успешен
                     if (CheckBuses(arrivalTimes, timePosition + 1, buses))
                         return true;
