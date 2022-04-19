@@ -10,13 +10,13 @@ namespace Backtracking
     {
         public int FirstArrivalTime { get; set; }
         public int Interval { get; set; }
-        int lastTime;
+        public int LastTime { get; set; }
 
         public Bus()
         {
             FirstArrivalTime = -1;
             Interval = -1;
-            lastTime = -1;
+            LastTime = -1;
         }
 
         public bool IsRightTime(int time)
@@ -27,7 +27,7 @@ namespace Backtracking
 
             // время прихода и интервал есть, надо проверить корректность
 
-            return lastTime + Interval == time;
+            return LastTime + Interval == time;
         }
 
         public bool AddTime(int time)
@@ -44,11 +44,11 @@ namespace Backtracking
             else if (Interval == -1)
             {
                 Interval = time - FirstArrivalTime;
-                lastTime = time;
+                LastTime = time;
             }
-            else if (lastTime + Interval == time)
+            else if (LastTime + Interval == time)
             {
-                lastTime = time;
+                LastTime = time;
             }
 
             return true;
@@ -65,14 +65,14 @@ namespace Backtracking
                     FirstArrivalTime = -1;
                 }
                 // если время прибытия отличается на один интервал, значит удаляем 2 время, интервал обновляем
-                else if (FirstArrivalTime + Interval == lastTime)
+                else if (FirstArrivalTime + Interval == LastTime)
                 {
                     Interval = -1;
                 }
                 // удаляём 3+ время, обновляемс только предыдущее значение
                 else
                 {
-                    lastTime -= Interval;
+                    LastTime -= Interval;
                 }
             }
         }

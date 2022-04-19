@@ -25,11 +25,22 @@ namespace Backtracking
             return arrivalTimes;
         }
 
+        static bool СheckFullTimes(List<Bus> buses)
+        {
+            foreach(Bus bus in buses)
+            {
+                if (bus.Interval != -1 && bus.LastTime + bus.Interval < 60)
+                    return false;
+            }
+
+            return true;
+        }
+
         static bool CheckBuses(int[] arrivalTimes, int timePosition, List<Bus> buses)
         {
             // прошли все времена, возвращем истину
             if (timePosition == arrivalTimes.Length)
-                return true;
+                return СheckFullTimes(buses);
 
             foreach (Bus bus in buses)
             {
