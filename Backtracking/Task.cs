@@ -33,10 +33,8 @@ namespace Backtracking
 
             foreach (Bus bus in buses)
             {
-                int time = arrivalTimes[timePosition];
-
                 // к этому автобусу подходит время, пробуем его
-                if (bus.AddTime(time))
+                if (bus.AddTime(arrivalTimes[timePosition]))
                 {
                     // перебор успешен
                     if (CheckBuses(arrivalTimes, timePosition + 1, buses))
