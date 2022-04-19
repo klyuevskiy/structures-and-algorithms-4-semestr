@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Backtracking
 {
@@ -38,7 +39,6 @@ namespace Backtracking
 
         static bool CheckBuses(int[] arrivalTimes, int timePosition, List<Bus> buses)
         {
-            // прошли все времена, возвращем истину
             if (timePosition == arrivalTimes.Length)
                 return СheckFullTimes(buses);
 
