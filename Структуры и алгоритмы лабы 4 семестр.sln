@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hash", "Hash\Hash.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrieTreeExample", "TrieTreeExample\TrieTreeExample.csproj", "{BECD84FB-1A1A-49B1-83BA-4DBAAFB58662}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Лаба 4", "Лаба 4", "{0F39B683-BA4F-4FEE-8C37-F405C1B5A919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalSort", "InternalSort\InternalSort.csproj", "{A900D6C7-DCC6-43CC-9601-2A5681F0EB16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{BECD84FB-1A1A-49B1-83BA-4DBAAFB58662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BECD84FB-1A1A-49B1-83BA-4DBAAFB58662}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BECD84FB-1A1A-49B1-83BA-4DBAAFB58662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A900D6C7-DCC6-43CC-9601-2A5681F0EB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A900D6C7-DCC6-43CC-9601-2A5681F0EB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A900D6C7-DCC6-43CC-9601-2A5681F0EB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A900D6C7-DCC6-43CC-9601-2A5681F0EB16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{72320E03-AC7C-46C0-824B-36292A790E94} = {79AC88D7-CE4C-4788-9B15-1CBF573593D7}
 		{1F0520DF-83C7-4B2A-B273-3690E26AAF88} = {8D2051BD-2CFB-448D-B9F2-24D5AAD4E0C7}
 		{BECD84FB-1A1A-49B1-83BA-4DBAAFB58662} = {3CD4542C-1EB3-4E0C-AB46-8363D7A04107}
+		{A900D6C7-DCC6-43CC-9601-2A5681F0EB16} = {0F39B683-BA4F-4FEE-8C37-F405C1B5A919}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8C4508B-EF05-482D-BD77-D5B5B7FDE899}
