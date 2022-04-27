@@ -56,14 +56,19 @@ namespace InternalSort
             // печать массива и кодов символов(чтобы понимать что правильно отсортировано)
 
             string chars = "",
-                charCodes = "";
+                charCodes = "",
+                binary = "";
+
             foreach (var item in sortArray)
             {
                 chars += item.ToString() + " ";
                 charCodes += ((int)item).ToString() + " ";
+                binary += Convert.ToString(item, 2) + " ";
             }
 
-            return chars + "\nКоды символов: " + charCodes;
+            return $"{chars}\n" +
+                $"Коды символов:\n{charCodes}\n" +
+                $"Бинарное представление:\n{binary}";
         }
 
         // выделить цветом букву
@@ -101,7 +106,7 @@ namespace InternalSort
             exchangeIndex++;
 
             // печать сообщения = разряд бита + номера элементов + элементы + их двоичное представление
-            textBox.Text += $"\nСравниваем по разряду {bitNumber + 1}\n" +
+            textBox.Text += $"\n\nСравниваем по разряду {bitNumber + 1}\n" +
                 $"Меняем элементы с номерами {firstIndex + 1}, {secondIndex + 1}\n" +
                 $"Меняемые значения {sortArray[firstIndex]}({Convert.ToString(sortArray[firstIndex], 2)}), " +
                 $"{sortArray[secondIndex]}({Convert.ToString(sortArray[secondIndex], 2)})";
