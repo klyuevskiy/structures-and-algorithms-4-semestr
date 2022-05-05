@@ -5,153 +5,189 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Threading;
 
 namespace InternalSort
 {
-    // класс визуализации
     class Visualization
     {
-        private readonly RichTextBox textBox;
-        private readonly char[] sortArray;
-        int exchangeIndex;
+        private readonly RichTextBox _textBox;
+        private readonly char[] _sortedArray;
 
-        // содержит список обменов
-        // один обмен = индексы элементов + разряд сравенения
-
-        // узел, который будет хранится в списке
-        class Exchange
+        public class DrawingNode
         {
-            public int FirstIndex { get; set; }
-            public int SecondIndex { get; set; }
+            public int Left { get; set; }
+            public int Right { get; set; }
             public int BitNumber { get; set; }
-            
-            public Exchange(int firstIndex, int secondIndex, int bitNumber)
+            public int LeftIndex { get; set; }
+            public int RightIndex { get; set; }
+            public string Message { get; set; }
+            public bool IsExchange { get; set; }
+
+            public DrawingNode(int left, int right, int bitNumber, int leftIndex, int rightIndex, string message, bool isExchange)
             {
-                FirstIndex = firstIndex;
-                SecondIndex = secondIndex;
+                Left = left;
+                Right = right;
                 BitNumber = bitNumber;
+                LeftIndex = leftIndex;
+                RightIndex = rightIndex;
+                Message = message;
+                IsExchange = isExchange;
             }
         }
 
-        public Visualization(RichTextBox textBox, char[] sortArray)
-        {
-            this.textBox = textBox;
+        List<DrawingNode> _drawingNodes;
 
-            // клонирование а не ссылка, чтобы после сортировки начальный массив высвечивать
-            this.sortArray = sortArray.Clone() as char[];
-            exchanges = new List<Exchange>();
+        public Visualization(RichTextBox textBox, char[] arr)
+        {
+            _textBox = textBox;
+            _sortedArray = arr.Clone() as char[];
+            _drawingNodes = new List<DrawingNode>();
         }
 
-        List<Exchange> exchanges;
-
-        public void AddExchange(int firstIndex, int secondIndex, int bitNumber)
+        public void AddNode(DrawingNode node)
         {
-            exchanges.Add(new Exchange(firstIndex, secondIndex, bitNumber));
+            _drawingNodes.Add(node);
         }
 
-        // печать массива
-        string PrintArray()
+        private int GetMaxBit(char c)
         {
-            // печать массива и кодов символов(чтобы понимать что правильно отсортировано)
+            int i = sizeof(char) * 8 - 1, bit = 1 << i;
 
-            string chars = "",
-                charCodes = "",
-                binary = "";
-
-            foreach (var item in sortArray)
+            while (i >= 0)
             {
-                chars += item.ToString() + " ";
-                charCodes += ((int)item).ToString() + " ";
-                binary += Convert.ToString(item, 2) + " ";
+                if ((bit & c) != 0)
+                    return i;
+                i--;
+                bit >>= 1;
             }
 
-            return $"{chars}\n" +
-                $"Коды символов:\n{charCodes}\n" +
-                $"Бинарное представление:\n{binary}";
+            return i;
         }
 
-        // выделить цветом букву
-        void HighlightItem(int index)
+        public int GetMaxBit()
         {
-            textBox.Select(2 * index, 1);
-            textBox.SelectionColor = Color.Brown;
-        }
+            int max = 0;
 
-        public void StartVisualize()
-        {
-            // сортируем так обмены, чтобы были изначально обмены страших битов
-            // так как реализация сортировки через рекурсию, то там другой порядок
-            // на результат не влияет, но нагляднее
-            exchanges.Sort((a, b) => b.BitNumber - a.BitNumber);
-            exchangeIndex = 0;
-            textBox.Text = "Исходный массив: " + PrintArray();
-        }
-
-        // отобразить следующий обмен true - если дальше есть обмены
-        public bool VisualiseNextExchange()
-        {
-            if (exchangeIndex >= exchanges.Count)
+            foreach (var item in _sortedArray)
             {
-                textBox.Text = "Отсортированный массив: " + PrintArray();
-                return false;
+                max = Math.Max(max, GetMaxBit(item));
             }
 
-            textBox.Text = PrintArray();
-
-            int firstIndex = exchanges[exchangeIndex].FirstIndex,
-                secondIndex = exchanges[exchangeIndex].SecondIndex,
-                bitNumber = exchanges[exchangeIndex].BitNumber;
-
-            exchangeIndex++;
-
-            // печать сообщения = разряд бита + номера элементов + элементы + их двоичное представление
-            textBox.Text += $"\n\nСравниваем по разряду {bitNumber + 1}\n" +
-                $"Меняем элементы с номерами {firstIndex + 1}, {secondIndex + 1}\n" +
-                $"Меняемые значения {sortArray[firstIndex]}({Convert.ToString(sortArray[firstIndex], 2)}), " +
-                $"{sortArray[secondIndex]}({Convert.ToString(sortArray[secondIndex], 2)})";
-
-            HighlightItem(firstIndex);
-            HighlightItem(secondIndex);
-
-            char tmp = sortArray[firstIndex];
-            sortArray[firstIndex] = sortArray[secondIndex];
-            sortArray[secondIndex] = tmp;
-
-            return true;
+            return max;
         }
 
-        // функция полность сама выводит обмены
-        // написал вначале её, но потом решил сделать кнопку следующего обмена
+        private string GetAllBitsChar(char c, int maxBit)
+        {
+            string result = "";
+            int bit = 1 << maxBit;
+
+            while (maxBit >= 0)
+            {
+                if ((bit & c) != 0)
+                    result += "1";
+                else
+                    result += "0";
+
+                maxBit--;
+                bit >>= 1;
+            }
+
+            return result;
+        }
+
+        private int DrawNumber(char c, int position, int left, int right, int index, int maxBit, bool isHighlight, int bitNumber)
+        {
+            string bits = GetAllBitsChar(c, maxBit);
+            _textBox.Text += bits + " ";
+
+            // + 1 так как ещё пробел
+            return position + bits.Length + 1;
+        }
+
+        private void HighligthGray(int left, int right, int maxBit, int textEnd)
+        {
+            // каждое число имеет длину maxBit + 1
+            int itemLength = maxBit + 1;
+
+            // выдлеим серым всё что за пределеми текущего
+            _textBox.Select(0, itemLength * left + left);
+            _textBox.SelectionColor = Color.Gray;
+
+            int pos = (right + 1) * itemLength + right;
+            _textBox.Select(pos, textEnd - pos);
+            _textBox.SelectionColor = Color.Gray;
+        }
+
+        private void HighlightPointer(int index, int maxBit, int bitNumber)
+        {
+            int itemLength = maxBit + 1;
+            _textBox.Select(index * itemLength + index + maxBit - bitNumber, 1);
+            _textBox.SelectionColor = Color.Red;
+        }
+
+        private void Draw(DrawingNode node, int maxBit)
+        {
+            _textBox.Text = "";
+            int position = 0;
+
+            for (int i = 0; i < _sortedArray.Length; i++)
+            {
+                position = DrawNumber(_sortedArray[i], position, node.Left, node.Right,
+                    i, maxBit, (i == node.LeftIndex || i == node.RightIndex), node.BitNumber);
+            }
+
+            _textBox.Text += $"\n\nРассматриваем подмассив [{node.Left + 1}; {node.Right + 1}]\n" +
+                $"Сравниваем по {node.BitNumber + 1} разряду\n" +
+                node.Message;
+
+            HighligthGray(node.Left, node.Right, maxBit, position);
+            HighlightPointer(node.LeftIndex, maxBit, node.BitNumber);
+            HighlightPointer(node.RightIndex, maxBit, node.BitNumber);
+
+            if (node.IsExchange)
+            {
+                char tmp = _sortedArray[node.LeftIndex];
+                _sortedArray[node.LeftIndex] = _sortedArray[node.RightIndex];
+                _sortedArray[node.RightIndex] = tmp;
+            }
+        }
+
+        private string PrintArray()
+        {
+            string res = "",
+                codes = "";
+            foreach (var item in _sortedArray)
+            {
+                res += item + " ";
+                codes += ((int)item).ToString() + " ";
+            }
+            return res + "\nКоды символов:\n" + codes;
+        }
+
         public async Task Visualize()
         {
-            exchanges.Sort((a, b) => b.BitNumber - a.BitNumber);
+            _textBox.Text = "Введён массив:\n" + PrintArray();
 
-            foreach (var item in exchanges)
+            await Task.Delay(2000);
+
+            int maxBit = GetMaxBit();
+
+            foreach (var item in _drawingNodes)
             {
-                textBox.Text = PrintArray();
+                Draw(item, maxBit);
 
-                await Task.Delay(1500);
+                int delayTime = 2000;
 
-                textBox.Text += $"\nСравниваем по разряду {item.BitNumber + 1}\n" +
-                    $"Меняем элементы с номерами {item.FirstIndex + 1}, {item.SecondIndex + 1}\n" +
-                    $"Меняемые значения {sortArray[item.FirstIndex]}({Convert.ToString(sortArray[item.FirstIndex], 2)}), " +
-                    $"{sortArray[item.SecondIndex]}({Convert.ToString(sortArray[item.SecondIndex], 2)})";
+                if (item.IsExchange)
+                    delayTime += 2000;
 
-                await Task.Delay(1500);
-
-                HighlightItem(item.FirstIndex);
-                HighlightItem(item.SecondIndex);
-
-                char tmp = sortArray[item.FirstIndex];
-                sortArray[item.FirstIndex] = sortArray[item.SecondIndex];
-                sortArray[item.SecondIndex] = tmp;
-
-                await Task.Delay(1500);
+                await Task.Delay(delayTime);
             }
 
-            // конечная печать
-            textBox.Text = "Отсортированный массив\n" + PrintArray();
+            string message = "Массив отсортирован\n";
+            string strArr = PrintArray();
+
+            _textBox.Text = message + strArr;
         }
     }
 }

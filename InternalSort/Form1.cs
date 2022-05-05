@@ -28,34 +28,23 @@ namespace InternalSort
                 .ToCharArray();
         }
 
-        private void отсортироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void отсортироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             char[] arr = GetCharArray();
 
             // создать объекты визуализации и сортировки
             visualization = new Visualization(richTextBox1, arr);
-            Sort sort = new Sort(visualization);
+            Sort sort = new Sort(visualization, visualization.GetMaxBit());
 
             // пока сортируется нельзя больше запросить отсортировать
             отсортироватьToolStripMenuItem.Enabled = false;
-            следующаяПерестановкаToolStripMenuItem.Enabled = true;
 
             // сортировка + визуализация
             sort.RadixSort(arr);
-            visualization.StartVisualize();
-            //await visualization.Visualize();
+            await visualization.Visualize();
 
             // можно сортировать
-            //отсортироватьToolStripMenuItem.Enabled = true;
-        }
-
-        private void следующаяПерестановкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!visualization.VisualiseNextExchange())
-            {
-                отсортироватьToolStripMenuItem.Enabled = true;
-                следующаяПерестановкаToolStripMenuItem.Enabled = false;
-            }
+            отсортироватьToolStripMenuItem.Enabled = true;
         }
     }
 }

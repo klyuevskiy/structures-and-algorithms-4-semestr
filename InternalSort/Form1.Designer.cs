@@ -34,7 +34,6 @@ namespace InternalSort
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.следующаяПерестановкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -46,8 +45,7 @@ namespace InternalSort
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отсортироватьToolStripMenuItem,
-            this.следующаяПерестановкаToolStripMenuItem});
+            this.отсортироватьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 29);
@@ -101,14 +99,6 @@ namespace InternalSort
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // следующаяПерестановкаToolStripMenuItem
-            // 
-            this.следующаяПерестановкаToolStripMenuItem.Enabled = false;
-            this.следующаяПерестановкаToolStripMenuItem.Name = "следующаяПерестановкаToolStripMenuItem";
-            this.следующаяПерестановкаToolStripMenuItem.Size = new System.Drawing.Size(159, 25);
-            this.следующаяПерестановкаToolStripMenuItem.Text = "Следующий обмен";
-            this.следующаяПерестановкаToolStripMenuItem.Click += new System.EventHandler(this.следующаяПерестановкаToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -138,7 +128,6 @@ namespace InternalSort
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem отсортироватьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem следующаяПерестановкаToolStripMenuItem;
     }
 }
 

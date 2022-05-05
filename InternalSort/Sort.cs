@@ -9,16 +9,18 @@ namespace InternalSort
     class Sort
     {
         private readonly Visualization visualization;
+        private readonly int _maxBit;
 
-        public Sort(Visualization visualization)
+        public Sort(Visualization visualization, int maxBit)
         {
             this.visualization = visualization;
+            _maxBit = maxBit;
         }
 
         public void RadixSort(char[] arr)
         {
             // задаём левую и правую границу и номер страшего бита(начиная с 0, поэтому -1)
-            RadixSort(arr, 0, arr.Length - 1, sizeof(char) * 8 - 1);
+            RadixSort(arr, 0, arr.Length - 1, _maxBit);
         }
 
         void RadixSort(char[] arr, int left, int right, int bitNumber)
@@ -39,16 +41,30 @@ namespace InternalSort
             {
                 // ищем слева 1 в разряде
                 while ((arr[i] & bit) == 0 && i < j)
+                {
                     i++;
+                    visualization.AddNode(
+                        new Visualization.DrawingNode(left, right, bitNumber, i, j, "Сдвигаем левый указатель", false)
+                        );
+                }
+
                 // ищем справа 0 в разряде
                 while ((arr[j] & bit) != 0 && i < j)
+                {
                     j--;
+                    visualization.AddNode(
+                        new Visualization.DrawingNode(left, right, bitNumber, i, j, "Сдвигаем правый указатель", false)
+                        );
+                }
 
                 // нашли пару значений 1 и 0, меняем
                 if (i < j)
                 {
                     // добавим обмен для визуализации
-                    visualization.AddExchange(i, j, bitNumber);
+                    visualization.AddNode(
+                        new Visualization.DrawingNode(left, right, bitNumber, i, j,
+                        $"Меняем элементы с номерами {i + 1} и {j + 1} местами", true)
+                        );
 
                     // обмен
                     char tmp = arr[i];
@@ -56,8 +72,8 @@ namespace InternalSort
                     arr[j] = tmp;
 
                     // сразу сдвинем индесы, чтобы снова не проверять их
-                    i++;
-                    j--;
+                    //i++;
+                    //j--;
                 }
             }
 
