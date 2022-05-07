@@ -136,6 +136,8 @@ namespace InternalSort
                     i, maxBit, (i == node.LeftIndex || i == node.RightIndex), node.BitNumber);
             }
 
+            _textBox.Text += "\n\nМассив символов:\n" + PrintArray();
+
             _textBox.Text += $"\n\nРассматриваем подмассив [{node.Left + 1}; {node.Right + 1}]\n" +
                 $"Сравниваем по {node.BitNumber + 1} разряду\n" +
                 node.Message;
@@ -184,10 +186,16 @@ namespace InternalSort
                 await Task.Delay(delayTime);
             }
 
-            string message = "Массив отсортирован\n";
-            string strArr = PrintArray();
+            _textBox.Text = "Массив отсортирован\n" +
+                "\nБитовое предлставление:\n";
 
-            _textBox.Text = message + strArr;
+            foreach (var item in _sortedArray)
+            {
+                DrawNumber(item, 0, 0, _sortedArray.Length - 1,
+                    0, maxBit, false, 0);
+            }
+
+            _textBox.Text += "\n\nОтсортированный массив:\n" + PrintArray();
         }
     }
 }
