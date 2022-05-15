@@ -118,11 +118,11 @@ namespace InternalSort
             _textBox.SelectionColor = Color.Gray;
         }
 
-        private void HighlightPointer(int index, int maxBit, int bitNumber)
+        private void HighlightPointer(int index, int maxBit, int bitNumber, Color color)
         {
             int itemLength = maxBit + 1;
             _textBox.Select(index * itemLength + index + maxBit - bitNumber, 1);
-            _textBox.SelectionColor = Color.Red;
+            _textBox.SelectionColor = color;
         }
 
         private void Draw(DrawingNode node, int maxBit)
@@ -143,8 +143,8 @@ namespace InternalSort
                 node.Message;
 
             HighligthGray(node.Left, node.Right, maxBit, position);
-            HighlightPointer(node.LeftIndex, maxBit, node.BitNumber);
-            HighlightPointer(node.RightIndex, maxBit, node.BitNumber);
+            HighlightPointer(node.LeftIndex, maxBit, node.BitNumber, Color.Red);
+            HighlightPointer(node.RightIndex, maxBit, node.BitNumber, Color.Yellow);
 
             if (node.IsExchange)
             {
@@ -178,7 +178,7 @@ namespace InternalSort
             {
                 Draw(item, maxBit);
 
-                int delayTime = 2000;
+                int delayTime = 1000;
 
                 if (item.IsExchange)
                     delayTime += 2000;

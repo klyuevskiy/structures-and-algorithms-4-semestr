@@ -42,15 +42,21 @@ namespace InternalSort
                 // ищем слева 1 в разряде
                 while ((arr[i] & bit) == 0 && i < j)
                 {
-                    i++;
                     visualization.AddNode(
                         new Visualization.DrawingNode(left, right, bitNumber, i, j, "Сдвигаем левый указатель", false)
+                        );
+                    i++;
+                    visualization.AddNode(
+                        new Visualization.DrawingNode(left, right, bitNumber, i, j, "Сдвигаем правый указатель", false)
                         );
                 }
 
                 // ищем справа 0 в разряде
                 while ((arr[j] & bit) != 0 && i < j)
                 {
+                    visualization.AddNode(
+                        new Visualization.DrawingNode(left, right, bitNumber, i, j, "Сдвигаем правый указатель", false)
+                        );
                     j--;
                     visualization.AddNode(
                         new Visualization.DrawingNode(left, right, bitNumber, i, j, "Сдвигаем правый указатель", false)
