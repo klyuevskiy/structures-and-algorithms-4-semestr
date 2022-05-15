@@ -9,69 +9,6 @@ namespace ExternalSort
 {
     public class SortFile
     {
-        //private readonly string _filePath;
-        //private StreamWriter writer;
-        //private StreamReader reader;
-
-        //public bool EndOfFile { get; private set; }
-        //public bool EndOfSeries { get; set; }
-
-        //public SortFile()
-        //{
-        //    _filePath = Guid.NewGuid().ToString() + ".txt";
-        //}
-
-        //public SortFile(string filePath)
-        //{
-        //    _filePath = filePath;
-        //}
-
-        //public void Remove()
-        //{
-        //    writer?.Close();
-        //    reader?.Close();
-
-        //    //File.Delete(_filePath);
-        //}
-
-        //public void OpenToWrite()
-        //{
-        //    reader?.Close();
-        //    writer = new StreamWriter(_filePath);
-        //    EndOfFile = false;
-        //}
-
-        //public void OpenToRead()
-        //{
-        //    writer?.Close();
-        //    reader = new StreamReader(_filePath);
-        //    EndOfFile = false;
-        //}
-
-        //public void Write(int number)
-        //{
-        //    writer.Write(number.ToString() + " ");
-        //}
-
-        //public int Read()
-        //{
-        //    string res = "";
-
-        //    int c = reader.Read();
-
-        //    // читаем до пробела
-        //    while (c != -1 && (char)c !=' ')
-        //    {
-        //        res += (char)c;
-        //        c = reader.Read();
-        //    }
-
-        //    if (c == -1)
-        //        EndOfFile = true;
-
-        //    return Int32.Parse(res);
-        //}
-
         private readonly string _filePath;
         private FileStream _file;
         private long _numbersNumber;
@@ -132,6 +69,7 @@ namespace ExternalSort
 
         public void Delete()
         {
+            _file?.Close();
             _file = null;
             File.Delete(_filePath);
         }

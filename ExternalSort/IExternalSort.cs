@@ -8,6 +8,6 @@ namespace ExternalSort
 {
     public interface IExternalSort
     {
-        void Sort(SortFile sortedFile);
+        SortInformation Sort(SortFile sortedFile);
     }
 }

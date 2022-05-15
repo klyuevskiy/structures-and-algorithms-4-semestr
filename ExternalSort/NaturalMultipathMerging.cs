@@ -9,10 +9,13 @@ namespace ExternalSort
 {
     public class NaturalMultipathMerging : IExternalSort
     {
-        private readonly int _filesNumber;
-        private SortFile[] _files;
-        ISortingStructure currentSorting,
-            nextSorting;
+        readonly int _filesNumber;
+        SortFile[] _files;
+
+        ISortingStructure _currentSorting,
+            _nextSorting;
+
+        SortInformation information;
 
         public NaturalMultipathMerging(int filesNumber = 10)
         {
@@ -23,11 +26,8 @@ namespace ExternalSort
 
             _files = new SortFile[filesNumber];
 
-            for (int i = 0; i < filesNumber; i++)
-                _files[i] = new SortFile();
-
-            currentSorting = new ListSorting();
-            nextSorting = new ListSorting();
+            _currentSorting = new ListSorting();
+            _nextSorting = new ListSorting();
         }
 
         void OpenFilesToRead()
@@ -44,6 +44,12 @@ namespace ExternalSort
             {
                 item.OpenToWrite();
             }
+        }
+
+        void CreateFiles()
+        {
+            for (int i = 0; i < _filesNumber; i++)
+                _files[i] = new SortFile();
         }
 
         void DeleteFiles()
@@ -76,6 +82,8 @@ namespace ExternalSort
                 if (number < previousNumber)
                     seriesIndex++;
 
+                information.ComparesNumber++;
+
                 _files[seriesIndex % _filesNumber].Write(number);
                 previousNumber = number;
             }
@@ -94,7 +102,7 @@ namespace ExternalSort
                 if (!_files[i].EndOfFile)
                 {
                     int number = _files[i].Read();
-                    currentSorting.Add(number, i);
+                    _currentSorting.Add(number, i);
                 }
             }
 
@@ -103,13 +111,13 @@ namespace ExternalSort
             bool IsAddToNextSorting = false;
 
             // далее пока структуры не пусты, мы объединяем
-            while (!currentSorting.IsEmpty() || !nextSorting.IsEmpty())
+            while (!_currentSorting.IsEmpty() || !_nextSorting.IsEmpty())
             {
                 // пока в текущей структуре есть числа, то идёт текущая серия
-                while (!currentSorting.IsEmpty())
+                while (!_currentSorting.IsEmpty())
                 {
                     int number, fileIndex;
-                    (number, fileIndex) = currentSorting.GetMin();
+                    (number, fileIndex) = _currentSorting.GetMin();
 
                     // записываем в исходный файл новое значение
                     file.Write(number);
@@ -122,32 +130,49 @@ namespace ExternalSort
                         // если текущая серия, то записываем в текущую структуру
                         // если новая серия то в новую
 
+                        information.ComparesNumber++;
+
                         if (nextNumber >= number)
-                            currentSorting.Add(nextNumber, fileIndex);
+                            _currentSorting.Add(nextNumber, fileIndex);
                         else
                         {
-                            nextSorting.Add(nextNumber, fileIndex);
+                            _nextSorting.Add(nextNumber, fileIndex);
                             IsAddToNextSorting = true;
                         }
                     }
                 }
 
                 // меняем местами сортирующие структуры
-                ISortingStructure tmp = currentSorting;
-                currentSorting = nextSorting;
-                nextSorting = tmp;
+                ISortingStructure tmp = _currentSorting;
+                _currentSorting = _nextSorting;
+                _nextSorting = tmp;
             }
 
             return IsAddToNextSorting;
         }
 
-        public void Sort(SortFile file)
+        public SortInformation Sort(SortFile file)
         {
+            information = new SortInformation();
+            information.ElapsedTime.Start();
+
+            CreateFiles();
+
             do
             {
+                information.PassesNumber++;
                 Split(file);
             }
             while (Merge(file));
+
+            DeleteFiles();
+
+            information.ElapsedTime.Stop();
+            
+            information.ComparesNumber +=
+                _currentSorting.ComparesNumber + _nextSorting.ComparesNumber;
+
+            return information;
         }
     }
 }

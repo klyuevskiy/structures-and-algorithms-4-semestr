@@ -13,35 +13,67 @@ namespace ExternalSortExample
 {
     public partial class Form1 : Form
     {
+        // количество элемнентов по которым будет проводиться сравнение
+        int[] elementsNumbers = new int[]
+        {
+            1000,
+            5000,
+            10000,
+            50000
+        };
+
         public Form1()
         {
             InitializeComponent();
-
-
-            SortFile file = new SortFile("input.bin");
-
-            int[] arr = new int[] { /*1, 2, 4, 1, 2, 1, 2, 1, 5, 6, 2, 3, 2, 7*/ 
-            1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2};
-
-            file.OpenToWrite();
-
-            foreach (var item in arr)
-            {
-                file.Write(item);
-            }
-
-            NaturalMultipathMerging sort = new NaturalMultipathMerging(3);
-            sort.Sort(file);
-
-            file.OpenToRead();
-
-            string s = "";
-            while (!file.EndOfFile)
-            {
-                s += file.Read().ToString() + " ";
-            }
-            MessageBox.Show(s);
         }
 
+        void AddElementsNumberToDataGrid(DataGridView dataGrid, int elementsNumber)
+        {
+            dataGrid.Rows[dataGrid.Rows.Add()]
+                .Cells[0].Value = elementsNumber;
+        }
+
+        void FillDataGridElementsNumbers()
+        {
+            elapsedTimeDataGridView.Rows.Clear();
+            passesNumberDataGridView.Rows.Clear();
+            comparesNumberDataGridView.Rows.Clear();
+
+            foreach (var item in elementsNumbers)
+            {
+                AddElementsNumberToDataGrid(elapsedTimeDataGridView, item);
+                AddElementsNumberToDataGrid(passesNumberDataGridView, item);
+                AddElementsNumberToDataGrid(comparesNumberDataGridView, item);
+            }
+        }
+
+        private void startCompressionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // генерируем задачи сортировок
+
+            FillDataGridElementsNumbers();
+
+            startCompressionToolStripMenuItem.Enabled = false;
+
+            SortInformationPrinter sortInformationPrinter =
+                new SortInformationPrinter(elapsedTimeDataGridView, passesNumberDataGridView, comparesNumberDataGridView);
+
+            Task[] tasks = new Task[elementsNumbers.Length];
+
+            for (int i = 0; i < elementsNumbers.Length; i++)
+            {
+                //new SortFiles(elementsNumbers[i], i, sortInformationPrinter).Start();
+                tasks[i] = Task.Run(new SortFiles(elementsNumbers[i], i, sortInformationPrinter).Start);
+            }
+
+            Task.WaitAll(tasks);
+
+            startCompressionToolStripMenuItem.Enabled = true;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            FillDataGridElementsNumbers();
+        }
     }
 }
