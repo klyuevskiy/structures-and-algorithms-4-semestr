@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Reflection;
 
 namespace ExternalSortExample
 {
@@ -25,16 +24,13 @@ namespace ExternalSortExample
         };
 
         SortInformationPrinter sortInformationPrinter;
-        Type sortType;
-        
 
         public Form1()
         {
             InitializeComponent();
+
             sortInformationPrinter =
                 new SortInformationPrinter(elapsedTimeDataGridView, passesNumberDataGridView, comparesNumberDataGridView);
-
-            sortType = typeof(NaturalMultipathMerging);
         }
 
         void AddElementsNumberToDataGrid(DataGridView dataGrid, int elementsNumber)
