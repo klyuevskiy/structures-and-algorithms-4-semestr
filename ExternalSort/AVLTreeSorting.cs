@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExternalSort
 {
-    public class AVLTreeSorting : ISortingStructure
+    class AVLTreeSorting : ISortingStructure
     {
         public int ComparesNumber { get; private set; }
 

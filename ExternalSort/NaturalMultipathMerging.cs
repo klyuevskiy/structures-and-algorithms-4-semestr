@@ -26,8 +26,8 @@ namespace ExternalSort
 
             _files = new SortFile[filesNumber];
 
-            _currentSorting = new ListSorting();
-            _nextSorting = new ListSorting();
+            _currentSorting = new DoublyLinkedListSorting();
+            _nextSorting = new DoublyLinkedListSorting();
         }
 
         void OpenFilesToRead()
