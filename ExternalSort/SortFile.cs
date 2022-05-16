@@ -21,27 +21,38 @@ namespace ExternalSort
 
             // создадим файл
             _file = new FileStream(_filePath, FileMode.Create);
+
+            _numbersNumber = 0;
+            EndOfFile = true;
         }
 
         public SortFile(string filePath)
         {
             _filePath = filePath;
             _file = new FileStream(_filePath, FileMode.OpenOrCreate);
-        }
 
-        public void OpenToRead()
-        {
-            _file.Close();
-            _file = new FileStream(_filePath, FileMode.Open);
             _numbersNumber = _file.Length / sizeof(int);
             EndOfFile = _numbersNumber == 0;
         }
 
+        public void OpenToRead()
+        {
+            _file.Seek(0, SeekOrigin.Begin);
+
+            EndOfFile = _numbersNumber == 0;
+            //_file.Close();
+            //_file = new FileStream(_filePath, FileMode.Open);
+            //_numbersNumber = _file.Length / sizeof(int);
+            //EndOfFile = _numbersNumber == 0;
+        }
+
         public void OpenToWrite()
         {
-            _file.Close();
-            _file = new FileStream(_filePath, FileMode.Truncate);
-            EndOfFile = false;
+            _file.Seek(0, SeekOrigin.Begin);
+            _numbersNumber = 0;
+            //_file.Close();
+            //_file = new FileStream(_filePath, FileMode.Truncate);
+            //EndOfFile = false;
         }
 
         public int Read()
@@ -65,6 +76,7 @@ namespace ExternalSort
         public void Write(int number)
         {
             _file.Write(BitConverter.GetBytes(number), 0, sizeof(int));
+            _numbersNumber++;
         }
 
         public void Delete()

@@ -61,14 +61,14 @@ namespace ExternalSortExample
             sortInformationPrinter.PrintInverseFileSortInformation(elementsNumberIndex, sortInformation);
         }
 
-        public void Start()
+        public Task[] Start()
         {
-            //SortInverseFile();
-            //SortRandomFile();
-            // запустим сотировку файлов в отдельных потоках
-            Task sortedSort = Task.Factory.StartNew(SortSortedFile, TaskCreationOptions.AttachedToParent), 
-                randomSort = Task.Factory.StartNew(SortRandomFile, TaskCreationOptions.AttachedToParent),
-                inverseSort = Task.Factory.StartNew(SortInverseFile, TaskCreationOptions.AttachedToParent);
+            return new Task[]
+            {
+                Task.Run(SortSortedFile),
+                Task.Run(SortRandomFile),
+                Task.Run(SortInverseFile)
+            };
         }
     }
 }

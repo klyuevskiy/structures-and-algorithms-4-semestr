@@ -55,6 +55,8 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sortUserFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openUserFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comparesNumberDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passesNumberDataGridView)).BeginInit();
@@ -65,12 +67,13 @@ namespace ExternalSortExample
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startCompressionToolStripMenuItem});
+            this.startCompressionToolStripMenuItem,
+            this.sortUserFileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(905, 29);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Text = "Отсортировать файл";
             // 
             // startCompressionToolStripMenuItem
             // 
@@ -271,6 +274,18 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 91;
             // 
+            // sortUserFileToolStripMenuItem
+            // 
+            this.sortUserFileToolStripMenuItem.Name = "sortUserFileToolStripMenuItem";
+            this.sortUserFileToolStripMenuItem.Size = new System.Drawing.Size(171, 25);
+            this.sortUserFileToolStripMenuItem.Text = "Отсортировать файл";
+            this.sortUserFileToolStripMenuItem.Click += new System.EventHandler(this.sortUserFileToolStripMenuItem_Click);
+            // 
+            // openUserFileDialog
+            // 
+            this.openUserFileDialog.FileName = "FileName";
+            this.openUserFileDialog.Filter = "Текстовые файлы(*.txt)|*.txt";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -319,6 +334,8 @@ namespace ExternalSortExample
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.ToolStripMenuItem sortUserFileToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openUserFileDialog;
     }
 }
 
