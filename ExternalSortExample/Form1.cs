@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace ExternalSortExample
 {
@@ -23,6 +24,9 @@ namespace ExternalSortExample
             50000
         };
 
+        IEnumerable<Type> sortingStructureTypes;
+        Type sortingStructureType;
+
         SortInformationPrinter sortInformationPrinter;
 
         public Form1()
@@ -31,6 +35,10 @@ namespace ExternalSortExample
 
             sortInformationPrinter =
                 new SortInformationPrinter(elapsedTimeDataGridView, passesNumberDataGridView, comparesNumberDataGridView);
+
+            //SortFile rand = FileGenerator.GenerateRandomFile(10);
+            //NaturalMultipathMerging sort = new NaturalMultipathMerging((int)Math.Log2(10) + 1);
+            //sort.Sort(rand);
         }
 
         void AddElementsNumberToDataGrid(DataGridView dataGrid, int elementsNumber)
@@ -65,7 +73,7 @@ namespace ExternalSortExample
 
             for (int i = 0; i < elementsNumbers.Length; i++)
             {
-                tasks.AddRange(new SortFiles(elementsNumbers[i], i, sortInformationPrinter).Start());
+                tasks.AddRange(new SortFiles(sortingStructureType, elementsNumbers[i], i, sortInformationPrinter).Start());
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -76,6 +84,14 @@ namespace ExternalSortExample
         private void Form1_Load(object sender, EventArgs e)
         {
             FillDataGridElementsNumbers();
+
+            // fill combobox
+
+            sortingStructureTypes = Assembly.Load("ExternalSort").GetTypes()
+                .Where(type => type.GetInterface("ISortingStructure") != null);
+
+            selectSortingStructure.Items.AddRange(
+                sortingStructureTypes.Select(type => type.Name).ToArray());
         }
 
         private void sortUserFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -113,7 +129,7 @@ namespace ExternalSortExample
                 }
 
                 // сортируем
-                IExternalSort sort = new NaturalMultipathMerging((int)Math.Log2(numbers.Length) + 1);
+                IExternalSort sort = new NaturalMultipathMerging(sortingStructureType, (int)Math.Log2(numbers.Length) + 1);
 
                 SortInformation sortInformation = sort.Sort(sortedFile);
 
@@ -141,6 +157,14 @@ namespace ExternalSortExample
                     $"Выполнено проходов: {sortInformation.PassesNumber}\n" +
                     $"Выполнено сравнений: {sortInformation.ComparesNumber}");
             }
+        }
+
+        private void selectSortingStructure_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            startCompressionToolStripMenuItem.Enabled = true;
+            sortUserFileToolStripMenuItem.Enabled = true;
+
+            sortingStructureType = sortingStructureTypes.First(type => type.Name == selectSortingStructure.SelectedItem.ToString());
         }
     }
 }

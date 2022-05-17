@@ -42,13 +42,13 @@ namespace ExternalSort
         {
             ListNode newNode = new ListNode(number, fileIndex);
 
-            // голова пустая, сатвим на её место
+            //голова пустая, сатвим на её место
             if (_head == null)
             {
                 _head = newNode;
                 _tail = newNode;
             }
-            // меньше головы, ставим на её место
+            //больше головы, ставим на её место
             else if (number >= _head.Number)
             {
                 ComparesNumber++;
@@ -60,7 +60,7 @@ namespace ExternalSort
             else
             {
                 ComparesNumber++;
-                // иначе ищем нужную позицию
+                //иначе ищем нужную позицию
 
                 ListNode previous = _head, current = _head.Next;
 
@@ -74,7 +74,7 @@ namespace ExternalSort
                 newNode.Next = current;
                 newNode.Prev = previous;
 
-                // current can be null
+                //current can be null
                 if (current != null)
                     current.Prev = newNode;
                 else
@@ -91,7 +91,10 @@ namespace ExternalSort
             int number = _tail.Number,
                 fileIndex = _tail.FileIndex;
 
-            _tail = _tail.Prev;
+            if (_tail.Prev != null)
+                _tail.Prev.Next = null;
+
+             _tail = _tail.Prev;
 
             if (_tail == null)
                 _head = null;
@@ -102,6 +105,7 @@ namespace ExternalSort
         public bool IsEmpty()
         {
             return _head == null;
+            //return list.Count == 0;
         }
     }
 }

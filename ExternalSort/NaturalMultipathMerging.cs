@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ExternalSort
 {
@@ -17,7 +18,7 @@ namespace ExternalSort
 
         SortInformation information;
 
-        public NaturalMultipathMerging(int filesNumber = 10)
+        public NaturalMultipathMerging(Type SortingStructureType, int filesNumber = 10)
         {
             _filesNumber = filesNumber;
 
@@ -26,8 +27,8 @@ namespace ExternalSort
 
             _files = new SortFile[filesNumber];
 
-            _currentSorting = new DoublyLinkedListSorting();
-            _nextSorting = new DoublyLinkedListSorting();
+            _currentSorting = Activator.CreateInstance(SortingStructureType) as ISortingStructure;
+            _nextSorting = Activator.CreateInstance(SortingStructureType) as ISortingStructure;
         }
 
         void OpenFilesToRead()

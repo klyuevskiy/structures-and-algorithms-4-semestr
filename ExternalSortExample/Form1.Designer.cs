@@ -37,6 +37,7 @@ namespace ExternalSortExample
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.startCompressionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortUserFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comparesNumberDataGridView = new System.Windows.Forms.DataGridView();
@@ -55,8 +56,9 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sortUserFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openUserFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label4 = new System.Windows.Forms.Label();
+            this.selectSortingStructure = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comparesNumberDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passesNumberDataGridView)).BeginInit();
@@ -77,16 +79,25 @@ namespace ExternalSortExample
             // 
             // startCompressionToolStripMenuItem
             // 
+            this.startCompressionToolStripMenuItem.Enabled = false;
             this.startCompressionToolStripMenuItem.Name = "startCompressionToolStripMenuItem";
             this.startCompressionToolStripMenuItem.Size = new System.Drawing.Size(180, 25);
             this.startCompressionToolStripMenuItem.Text = "Выполнить сравнение";
             this.startCompressionToolStripMenuItem.Click += new System.EventHandler(this.startCompressionToolStripMenuItem_Click);
             // 
+            // sortUserFileToolStripMenuItem
+            // 
+            this.sortUserFileToolStripMenuItem.Enabled = false;
+            this.sortUserFileToolStripMenuItem.Name = "sortUserFileToolStripMenuItem";
+            this.sortUserFileToolStripMenuItem.Size = new System.Drawing.Size(171, 25);
+            this.sortUserFileToolStripMenuItem.Text = "Отсортировать файл";
+            this.sortUserFileToolStripMenuItem.Click += new System.EventHandler(this.sortUserFileToolStripMenuItem_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(100, 40);
+            this.label1.Location = new System.Drawing.Point(100, 85);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(183, 21);
             this.label1.TabIndex = 1;
@@ -96,7 +107,7 @@ namespace ExternalSortExample
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(590, 40);
+            this.label2.Location = new System.Drawing.Point(590, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(166, 21);
             this.label2.TabIndex = 3;
@@ -110,7 +121,7 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn8});
-            this.comparesNumberDataGridView.Location = new System.Drawing.Point(12, 384);
+            this.comparesNumberDataGridView.Location = new System.Drawing.Point(12, 429);
             this.comparesNumberDataGridView.Name = "comparesNumberDataGridView";
             this.comparesNumberDataGridView.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -160,7 +171,7 @@ namespace ExternalSortExample
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(12, 360);
+            this.label3.Location = new System.Drawing.Point(12, 405);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(173, 21);
             this.label3.TabIndex = 5;
@@ -174,7 +185,7 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn7});
-            this.passesNumberDataGridView.Location = new System.Drawing.Point(456, 64);
+            this.passesNumberDataGridView.Location = new System.Drawing.Point(456, 109);
             this.passesNumberDataGridView.Name = "passesNumberDataGridView";
             this.passesNumberDataGridView.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -228,7 +239,7 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12});
-            this.elapsedTimeDataGridView.Location = new System.Drawing.Point(12, 66);
+            this.elapsedTimeDataGridView.Location = new System.Drawing.Point(12, 111);
             this.elapsedTimeDataGridView.Name = "elapsedTimeDataGridView";
             this.elapsedTimeDataGridView.ReadOnly = true;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -274,23 +285,39 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 91;
             // 
-            // sortUserFileToolStripMenuItem
-            // 
-            this.sortUserFileToolStripMenuItem.Name = "sortUserFileToolStripMenuItem";
-            this.sortUserFileToolStripMenuItem.Size = new System.Drawing.Size(171, 25);
-            this.sortUserFileToolStripMenuItem.Text = "Отсортировать файл";
-            this.sortUserFileToolStripMenuItem.Click += new System.EventHandler(this.sortUserFileToolStripMenuItem_Click);
-            // 
             // openUserFileDialog
             // 
             this.openUserFileDialog.FileName = "FileName";
             this.openUserFileDialog.Filter = "Текстовые файлы(*.txt)|*.txt";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(12, 44);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(188, 21);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Сортирующая структура";
+            // 
+            // selectSortingStructure
+            // 
+            this.selectSortingStructure.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectSortingStructure.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.selectSortingStructure.FormattingEnabled = true;
+            this.selectSortingStructure.Location = new System.Drawing.Point(207, 41);
+            this.selectSortingStructure.Name = "selectSortingStructure";
+            this.selectSortingStructure.Size = new System.Drawing.Size(243, 29);
+            this.selectSortingStructure.TabIndex = 10;
+            this.selectSortingStructure.SelectedIndexChanged += new System.EventHandler(this.selectSortingStructure_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(905, 749);
+            this.Controls.Add(this.selectSortingStructure);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.elapsedTimeDataGridView);
             this.Controls.Add(this.passesNumberDataGridView);
             this.Controls.Add(this.comparesNumberDataGridView);
@@ -336,6 +363,8 @@ namespace ExternalSortExample
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.ToolStripMenuItem sortUserFileToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openUserFileDialog;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox selectSortingStructure;
     }
 }
 

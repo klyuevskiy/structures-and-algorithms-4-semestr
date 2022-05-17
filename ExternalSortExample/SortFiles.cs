@@ -9,6 +9,7 @@ namespace ExternalSortExample
 {
     class SortFiles
     {
+        private readonly Type sortingStructureType;
         private readonly int elementsNumber;
         private readonly int elementsNumberIndex;
         private readonly SortInformationPrinter sortInformationPrinter;
@@ -17,8 +18,9 @@ namespace ExternalSortExample
             randomFile,
             inverseFile;
 
-        public SortFiles(int elementsNumber, int elementsNumberIndex, SortInformationPrinter sortInformationPrinter)
+        public SortFiles(Type sortingStructureType, int elementsNumber, int elementsNumberIndex, SortInformationPrinter sortInformationPrinter)
         {
+            this.sortingStructureType = sortingStructureType;
             this.elementsNumber = elementsNumber;
             this.elementsNumberIndex = elementsNumberIndex;
             this.sortInformationPrinter = sortInformationPrinter;
@@ -26,7 +28,7 @@ namespace ExternalSortExample
 
         SortInformation SortFile(SortFile file)
         {
-            NaturalMultipathMerging Sort = new NaturalMultipathMerging((int)Math.Log2(elementsNumber) + 1);
+            NaturalMultipathMerging Sort = new NaturalMultipathMerging(sortingStructureType, (int)Math.Log2(elementsNumber) + 1);
             return Sort.Sort(file);
         }
 
