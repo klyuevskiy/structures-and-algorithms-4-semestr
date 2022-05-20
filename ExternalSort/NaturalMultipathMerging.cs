@@ -11,7 +11,7 @@ namespace ExternalSort
     public class NaturalMultipathMerging : IExternalSort
     {
         readonly int _filesNumber;
-        SortFile[] _files;
+        IFile[] _files;
 
         ISortingStructure _currentSorting,
             _nextSorting;
@@ -25,7 +25,7 @@ namespace ExternalSort
             if (filesNumber < 2)
                 _filesNumber = 10;
 
-            _files = new SortFile[filesNumber];
+            _files = new BinaryFile[filesNumber];
 
             _currentSorting = Activator.CreateInstance(SortingStructureType) as ISortingStructure;
             _nextSorting = Activator.CreateInstance(SortingStructureType) as ISortingStructure;
@@ -50,7 +50,7 @@ namespace ExternalSort
         void CreateFiles()
         {
             for (int i = 0; i < _filesNumber; i++)
-                _files[i] = new SortFile();
+                _files[i] = new BinaryFile();
         }
 
         void DeleteFiles()
@@ -61,7 +61,7 @@ namespace ExternalSort
             }
         }
 
-        void Split(SortFile file)
+        void Split(IFile file)
         {
             file.OpenToRead();
             OpenFilesToWrite();
@@ -91,14 +91,14 @@ namespace ExternalSort
         }
 
         // возвращает true если надо продолжать сортировать
-        bool Merge(SortFile file)
+        bool Merge(IFile file)
         {
             file.OpenToWrite();
             OpenFilesToRead();
 
             // считываем вначачале с каждого файла по одному числу и добавляем в структуру
 
-            for (int i = 0; i < _filesNumber; i++)
+            for (int i = 0; i < _filesNumber && !_files[i].EndOfFile; i++)
             {
                 if (!_files[i].EndOfFile)
                 {
@@ -152,7 +152,7 @@ namespace ExternalSort
             return IsAddToNextSorting;
         }
 
-        public SortInformation Sort(SortFile file)
+        public SortInformation Sort(IFile file)
         {
             information = new SortInformation();
             information.ElapsedTime.Start();

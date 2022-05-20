@@ -14,7 +14,7 @@ namespace ExternalSortExample
         private readonly int elementsNumberIndex;
         private readonly SortInformationPrinter sortInformationPrinter;
 
-        SortFile sortedFile,
+        IFile sortedFile,
             randomFile,
             inverseFile;
 
@@ -26,7 +26,7 @@ namespace ExternalSortExample
             this.sortInformationPrinter = sortInformationPrinter;
         }
 
-        SortInformation SortFile(SortFile file)
+        SortInformation SortFile(IFile file)
         {
             NaturalMultipathMerging Sort = new NaturalMultipathMerging(sortingStructureType, (int)Math.Log2(elementsNumber) + 1);
             return Sort.Sort(file);

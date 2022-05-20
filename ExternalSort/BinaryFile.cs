@@ -7,14 +7,14 @@ using System.IO;
 
 namespace ExternalSort
 {
-    public class SortFile
+    public class BinaryFile : IFile
     {
         private readonly string _filePath;
         private FileStream _file;
         private long _numbersNumber;
         public bool EndOfFile { get; private set; }
 
-        public SortFile()
+        public BinaryFile()
         {
             // генерируем уникальное имя файла
             _filePath = Guid.NewGuid().ToString();
@@ -26,7 +26,7 @@ namespace ExternalSort
             EndOfFile = true;
         }
 
-        public SortFile(string filePath)
+        public BinaryFile(string filePath)
         {
             _filePath = filePath;
             _file = new FileStream(_filePath, FileMode.OpenOrCreate);

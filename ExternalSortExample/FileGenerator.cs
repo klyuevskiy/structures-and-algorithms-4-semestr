@@ -63,9 +63,9 @@ namespace ExternalSortExample
 
         }
 
-        static SortFile GenerateFile(int elementsNumber, IGenerator generator)
+        static BinaryFile GenerateFile(int elementsNumber, IGenerator generator)
         {
-            SortFile file = new SortFile();
+            BinaryFile file = new BinaryFile();
 
             file.OpenToWrite();
 
@@ -75,17 +75,17 @@ namespace ExternalSortExample
             return file;
         }
 
-        public static SortFile GenerateSortedFile(int elementsNumber)
+        public static BinaryFile GenerateSortedFile(int elementsNumber)
         {
             return GenerateFile(elementsNumber, new SortGenerator());
         }
 
-        public static SortFile GenerateRandomFile(int elementsNumber)
+        public static BinaryFile GenerateRandomFile(int elementsNumber)
         {
             return GenerateFile(elementsNumber, new RandomGenerator(elementsNumber));
         }
 
-        public static SortFile GenerateInverseFile(int elementsNumber)
+        public static BinaryFile GenerateInverseFile(int elementsNumber)
         {
             return GenerateFile(elementsNumber, new InverseGenerator(elementsNumber));
         }

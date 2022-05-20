@@ -35,10 +35,6 @@ namespace ExternalSortExample
 
             sortInformationPrinter =
                 new SortInformationPrinter(elapsedTimeDataGridView, passesNumberDataGridView, comparesNumberDataGridView);
-
-            //SortFile rand = FileGenerator.GenerateRandomFile(10);
-            //NaturalMultipathMerging sort = new NaturalMultipathMerging((int)Math.Log2(10) + 1);
-            //sort.Sort(rand);
         }
 
         void AddElementsNumberToDataGrid(DataGridView dataGrid, int elementsNumber)
@@ -119,7 +115,7 @@ namespace ExternalSortExample
                 readFile.Close();
 
                 // записываем в бинарный
-                SortFile sortedFile = new SortFile();
+                BinaryFile sortedFile = new BinaryFile();
 
                 sortedFile.OpenToWrite();
 
@@ -153,7 +149,7 @@ namespace ExternalSortExample
                 writeFile.Close();
 
                 MessageBox.Show($"Файл отсортирован\n" +
-                    $"Затраченное время: {sortInformation.ElapsedTime.ElapsedMilliseconds}\n" +
+                    $"Затраченное время: {sortInformation.ElapsedTime.ElapsedMilliseconds} мс\n" +
                     $"Выполнено проходов: {sortInformation.PassesNumber}\n" +
                     $"Выполнено сравнений: {sortInformation.ComparesNumber}");
             }
