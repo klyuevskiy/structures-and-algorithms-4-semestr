@@ -63,14 +63,11 @@ namespace ExternalSortExample
             sortInformationPrinter.PrintInverseFileSortInformation(elementsNumberIndex, sortInformation);
         }
 
-        public Task[] Start()
+        public void Start()
         {
-            return new Task[]
-            {
-                Task.Run(SortSortedFile),
-                Task.Run(SortRandomFile),
-                Task.Run(SortInverseFile)
-            };
+            SortSortedFile();
+            SortRandomFile();
+            SortInverseFile();
         }
     }
 }

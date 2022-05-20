@@ -64,15 +64,10 @@ namespace ExternalSortExample
             // чистим и заполняем grid
             FillDataGridElementsNumbers();
 
-            // запускаем потоки и запоминаем их, чтобы подождать их и сделать кнопку доступной
-            List<Task> tasks = new List<Task>();
-
             for (int i = 0; i < elementsNumbers.Length; i++)
             {
-                tasks.AddRange(new SortFiles(sortingStructureType, elementsNumbers[i], i, sortInformationPrinter).Start());
+                new SortFiles(sortingStructureType, elementsNumbers[i], i, sortInformationPrinter).Start();
             }
-
-            Task.WaitAll(tasks.ToArray());
 
             startCompressionToolStripMenuItem.Enabled = true;
         }
