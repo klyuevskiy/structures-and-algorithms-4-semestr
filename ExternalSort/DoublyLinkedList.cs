@@ -6,55 +6,66 @@ using System.Threading.Tasks;
 
 namespace ExternalSort
 {
-    class ListSorting : ISortingStructure
+    class DoublyLinkedList
     {
+        public int ComparesNumber { get; private set; }
+
         class ListNode
         {
             public int Number { get; set; }
             public int FileIndex { get; set; }
             public ListNode Next { get; set; }
+            public ListNode Prev { get; set; }
 
             public ListNode(int data, int fileIndex)
             {
                 Number = data;
                 FileIndex = fileIndex;
+
                 Next = null;
+                Prev = null;
             }
         }
 
-        public int ComparesNumber { get; private set; }
+        private ListNode _head, _tail;
 
-        private ListNode _head;
-
-        public ListSorting()
+        public DoublyLinkedList()
         {
             ComparesNumber = 0;
+
             _head = null;
+            _tail = null;
         }
 
+        public bool IsEmpty() =>
+            _head == null;
+
+        // в списке будем поддерживать обратную отсортированность
         public void Add(int number, int fileIndex)
         {
             ListNode newNode = new ListNode(number, fileIndex);
 
-            // голова пустая, сатвим на её место
             if (_head == null)
             {
                 _head = newNode;
+                _tail = newNode;
             }
-            // меньше головы, ставим на её место
-            else if (number < _head.Number)
+            else if (number >= _head.Number)
             {
                 ComparesNumber++;
+
                 newNode.Next = _head;
+                _head.Prev = newNode;
                 _head = newNode;
             }
             else
             {
                 ComparesNumber++;
-                // иначе ищем нужную позицию
+                //иначе ищем нужную позицию
+
                 ListNode previous = _head, current = _head.Next;
 
-                while (current != null && current.Number < number)
+                while (current != null && current.Number > number)
                 {
                     ComparesNumber++;
                     previous = current;
@@ -62,25 +73,31 @@ namespace ExternalSort
                 }
 
                 newNode.Next = current;
+                newNode.Prev = previous;
+
+                if (current != null)
+                    current.Prev = newNode;
+                else
+                    _tail = newNode;
+
                 previous.Next = newNode;
             }
         }
 
         public (int, int) GetMin()
         {
-            // нет проверки на пустоту ради производительности
+            int number = _tail.Number,
+                fileIndex = _tail.FileIndex;
 
-            int number = _head.Number,
-                fileIndex = _head.FileIndex;
-            
-            _head = _head.Next;
+            if (_tail.Prev != null)
+                _tail.Prev.Next = null;
+
+             _tail = _tail.Prev;
+
+            if (_tail == null)
+                _head = null;
 
             return (number, fileIndex);
-        }
-
-        public bool IsEmpty()
-        {
-            return _head == null;
         }
     }
 }

@@ -23,31 +23,25 @@ namespace ExternalSortExample
             this.comparesNumberDataGridView = comparesNumberDataGridView;
         }
 
-        void PrintSortInformation(int rowIndex, int cellIndex, SortInformation sortInformation)
+        void PrintSortInformation(int rowIndex, int columnIndex, SortInformation sortInformation)
         {
-            elapsedTimeDataGridView.Rows[rowIndex].Cells[cellIndex].Value =
+            elapsedTimeDataGridView.Rows[rowIndex].Cells[columnIndex].Value =
                 sortInformation.ElapsedTime.ElapsedMilliseconds;
 
-            passesNumberDataGridView.Rows[rowIndex].Cells[cellIndex].Value =
+            passesNumberDataGridView.Rows[rowIndex].Cells[columnIndex].Value =
                 sortInformation.PassesNumber;
 
-            comparesNumberDataGridView.Rows[rowIndex].Cells[cellIndex].Value =
+            comparesNumberDataGridView.Rows[rowIndex].Cells[columnIndex].Value =
                 sortInformation.ComparesNumber;
         }
 
-        public void PrintSortedFileSortInformation(int rowIndex, SortInformation sortInformation)
-        {
+        public void PrintSortedFileInformation(int rowIndex, SortInformation sortInformation) =>
             PrintSortInformation(rowIndex, 1, sortInformation);
-        }
 
-        public void PrintRandomFileSortInformation(int rowIndex, SortInformation sortInformation)
-        {
+        public void PrintRandomFileInformation(int rowIndex, SortInformation sortInformation) =>
             PrintSortInformation(rowIndex, 2, sortInformation);
-        }
 
-        public void PrintInverseFileSortInformation(int rowIndex, SortInformation sortInformation)
-        {
+        public void PrintInverseFileInformation(int rowIndex, SortInformation sortInformation) =>
             PrintSortInformation(rowIndex, 3, sortInformation);
-        }
     }
 }

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace ExternalSort
 {
-    public class BinaryFile : IFile
+    public class BinaryFile
     {
         private readonly string _filePath;
         private FileStream _file;
@@ -26,62 +26,44 @@ namespace ExternalSort
             EndOfFile = true;
         }
 
-        public BinaryFile(string filePath)
+        public void StartRead()
         {
-            _filePath = filePath;
-            _file = new FileStream(_filePath, FileMode.OpenOrCreate);
+            _file.Seek(0, SeekOrigin.Begin);
 
             _numbersNumber = _file.Length / sizeof(int);
             EndOfFile = _numbersNumber == 0;
         }
 
-        public void OpenToRead()
+        public void StartWrite()
         {
+            _file.SetLength(0);
             _file.Seek(0, SeekOrigin.Begin);
-
-            EndOfFile = _numbersNumber == 0;
-            //_file.Close();
-            //_file = new FileStream(_filePath, FileMode.Open);
-            //_numbersNumber = _file.Length / sizeof(int);
-            //EndOfFile = _numbersNumber == 0;
-        }
-
-        public void OpenToWrite()
-        {
-            _file.Seek(0, SeekOrigin.Begin);
-            _numbersNumber = 0;
-            //_file.Close();
-            //_file = new FileStream(_filePath, FileMode.Truncate);
-            //EndOfFile = false;
         }
 
         public int Read()
         {
-            if (_numbersNumber > 0)
-            {
-                byte[] buffer = new byte[sizeof(int)];
-                _file.Read(buffer);
+            if (_numbersNumber <= 0)
+                return -1;
 
-                _numbersNumber--;
+            byte[] buffer = new byte[sizeof(int)];
+            _file.Read(buffer);
 
-                if (_numbersNumber <= 0)
-                    EndOfFile = true;
+            _numbersNumber--;
 
-                return BitConverter.ToInt32(buffer);
-            }
+            if (_numbersNumber <= 0)
+                EndOfFile = true;
 
-            return -1;
+            return BitConverter.ToInt32(buffer);
         }
 
         public void Write(int number)
         {
             _file.Write(BitConverter.GetBytes(number), 0, sizeof(int));
-            _numbersNumber++;
         }
 
         public void Delete()
         {
-            _file?.Close();
+            _file.Close();
             _file = null;
             File.Delete(_filePath);
         }

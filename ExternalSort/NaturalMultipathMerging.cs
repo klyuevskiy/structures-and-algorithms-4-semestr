@@ -8,17 +8,19 @@ using System.Reflection;
 
 namespace ExternalSort
 {
-    public class NaturalMultipathMerging : IExternalSort
+    public class NaturalMultipathMerging
     {
         readonly int _filesNumber;
-        IFile[] _files;
+        BinaryFile[] _files;
 
-        ISortingStructure _currentSorting,
+        DoublyLinkedList _currentSorting,
             _nextSorting;
 
         SortInformation information;
 
-        public NaturalMultipathMerging(Type SortingStructureType, int filesNumber = 10)
+        BinaryFile sortedFile;
+
+        public NaturalMultipathMerging(int filesNumber)
         {
             _filesNumber = filesNumber;
 
@@ -27,23 +29,25 @@ namespace ExternalSort
 
             _files = new BinaryFile[filesNumber];
 
-            _currentSorting = Activator.CreateInstance(SortingStructureType) as ISortingStructure;
-            _nextSorting = Activator.CreateInstance(SortingStructureType) as ISortingStructure;
+            _currentSorting = new DoublyLinkedList();
+            _nextSorting = new DoublyLinkedList();
+
+            sortedFile = null;
         }
 
-        void OpenFilesToRead()
+        void StartReadFiles()
         {
             foreach (var item in _files)
             {
-                item.OpenToRead();
+                item.StartRead();
             }
         }
 
-        void OpenFilesToWrite()
+        void StartWriteFiles()
         {
             foreach (var item in _files)
             {
-                item.OpenToWrite();
+                item.StartWrite();
             }
         }
 
@@ -61,24 +65,24 @@ namespace ExternalSort
             }
         }
 
-        void Split(IFile file)
+        bool Split()
         {
-            file.OpenToRead();
-            OpenFilesToWrite();
+            sortedFile.StartRead();
+            StartWriteFiles();
 
             // если он пустой, то конец
 
-            if (file.EndOfFile)
-                return;
+            if (sortedFile.EndOfFile)
+                return false;
 
-            int previousNumber = file.Read(),
+            int previousNumber = sortedFile.Read(),
                 seriesIndex = 0;
 
             _files[seriesIndex].Write(previousNumber);
 
-            while (!file.EndOfFile)
+            while (!sortedFile.EndOfFile)
             {
-                int number = file.Read();
+                int number = sortedFile.Read();
 
                 if (number < previousNumber)
                     seriesIndex++;
@@ -88,28 +92,23 @@ namespace ExternalSort
                 _files[seriesIndex % _filesNumber].Write(number);
                 previousNumber = number;
             }
+
+            return seriesIndex != 0;
         }
 
         // возвращает true если надо продолжать сортировать
-        bool Merge(IFile file)
+        void Merge()
         {
-            file.OpenToWrite();
-            OpenFilesToRead();
+            sortedFile.StartWrite();
+            StartReadFiles();
 
             // считываем вначачале с каждого файла по одному числу и добавляем в структуру
 
             for (int i = 0; i < _filesNumber && !_files[i].EndOfFile; i++)
             {
-                if (!_files[i].EndOfFile)
-                {
-                    int number = _files[i].Read();
-                    _currentSorting.Add(number, i);
-                }
+                int number = _files[i].Read();
+                _currentSorting.Add(number, i);
             }
-
-            // если ни разу не добавляли в следующую структуру
-            // то в каждом файле не более одной серии, тогда в конце получится отсортированный файл
-            bool IsAddToNextSorting = false;
 
             // далее пока структуры не пусты, мы объединяем
             while (!_currentSorting.IsEmpty() || !_nextSorting.IsEmpty())
@@ -121,7 +120,7 @@ namespace ExternalSort
                     (number, fileIndex) = _currentSorting.GetMin();
 
                     // записываем в исходный файл новое значение
-                    file.Write(number);
+                    sortedFile.Write(number);
 
                     // считаем из файла новое значение
                     if (!_files[fileIndex].EndOfFile)
@@ -136,35 +135,34 @@ namespace ExternalSort
                         if (nextNumber >= number)
                             _currentSorting.Add(nextNumber, fileIndex);
                         else
-                        {
                             _nextSorting.Add(nextNumber, fileIndex);
-                            IsAddToNextSorting = true;
-                        }
                     }
                 }
 
                 // меняем местами сортирующие структуры
-                ISortingStructure tmp = _currentSorting;
+                DoublyLinkedList tmp = _currentSorting;
                 _currentSorting = _nextSorting;
                 _nextSorting = tmp;
             }
-
-            return IsAddToNextSorting;
         }
 
-        public SortInformation Sort(IFile file)
+        public SortInformation Sort(BinaryFile file)
         {
             information = new SortInformation();
+
+            // в любом случае будет один Split для проверки, ог должен учитываться как проход
+            information.PassesNumber = 1;
+            sortedFile = file;
+
             information.ElapsedTime.Start();
 
             CreateFiles();
 
-            do
+            while (Split())
             {
+                Merge();
                 information.PassesNumber++;
-                Split(file);
             }
-            while (Merge(file));
 
             DeleteFiles();
 

@@ -1,6 +1,7 @@
 ﻿using ExternalSort;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,58 +10,75 @@ namespace ExternalSortExample
 {
     class SortFiles
     {
-        private readonly Type sortingStructureType;
         private readonly int elementsNumber;
         private readonly int elementsNumberIndex;
         private readonly SortInformationPrinter sortInformationPrinter;
+        private readonly int filesNumber;
 
-        IFile sortedFile,
+        BinaryFile sortedFile,
             randomFile,
             inverseFile;
 
-        public SortFiles(Type sortingStructureType, int elementsNumber, int elementsNumberIndex, SortInformationPrinter sortInformationPrinter)
+        public SortFiles(int elementsNumber, int rowIndex,
+            SortInformationPrinter sortInformationPrinter, int filesNumber)
         {
-            this.sortingStructureType = sortingStructureType;
             this.elementsNumber = elementsNumber;
-            this.elementsNumberIndex = elementsNumberIndex;
+            this.elementsNumberIndex = rowIndex;
             this.sortInformationPrinter = sortInformationPrinter;
-        }
-
-        SortInformation SortFile(IFile file)
-        {
-            NaturalMultipathMerging Sort = new NaturalMultipathMerging(sortingStructureType, (int)Math.Log2(elementsNumber) + 1);
-            return Sort.Sort(file);
+            this.filesNumber = filesNumber;
         }
 
         void SortSortedFile()
         {
             sortedFile = FileGenerator.GenerateSortedFile(elementsNumber);
 
-            SortInformation sortInformation = SortFile(sortedFile);
+            SortInformation sortInformation = new
+                NaturalMultipathMerging(filesNumber).Sort(sortedFile);
+
+            BinToTxt(sortedFile, $"Sorted{elementsNumber}.txt");
 
             sortedFile.Delete();
 
-            sortInformationPrinter.PrintSortedFileSortInformation(elementsNumberIndex, sortInformation);
+            sortInformationPrinter.PrintSortedFileInformation(elementsNumberIndex, sortInformation);
         }
 
         void SortRandomFile()
         {
             randomFile = FileGenerator.GenerateRandomFile(elementsNumber);
 
-            SortInformation sortInformation = SortFile(randomFile);
+            SortInformation sortInformation = new
+                NaturalMultipathMerging(filesNumber).Sort(randomFile);
+
+            BinToTxt(randomFile, $"Random{elementsNumber}.txt");
 
             randomFile.Delete();
-            sortInformationPrinter.PrintRandomFileSortInformation(elementsNumberIndex, sortInformation);
+            sortInformationPrinter.PrintRandomFileInformation(elementsNumberIndex, sortInformation);
         }
 
         void SortInverseFile()
         {
             inverseFile = FileGenerator.GenerateInverseFile(elementsNumber);
 
-            SortInformation sortInformation = SortFile(inverseFile);
+            SortInformation sortInformation = new
+                NaturalMultipathMerging(filesNumber).Sort(inverseFile);
+
+            BinToTxt(inverseFile, $"Inverse{elementsNumber}.txt");
+
             inverseFile.Delete();
 
-            sortInformationPrinter.PrintInverseFileSortInformation(elementsNumberIndex, sortInformation);
+            sortInformationPrinter.PrintInverseFileInformation(elementsNumberIndex, sortInformation);
+        }
+
+        void BinToTxt(BinaryFile file, string fileName)
+        {
+            StreamWriter writer = new StreamWriter(fileName);
+
+            file.StartRead();
+
+            while (!file.EndOfFile)
+                writer.WriteLine(file.Read());
+
+            writer.Close();
         }
 
         public void Start()
