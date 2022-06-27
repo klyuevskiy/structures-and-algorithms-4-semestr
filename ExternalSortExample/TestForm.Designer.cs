@@ -40,24 +40,24 @@ namespace ExternalSortExample
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comparesNumberDataGridView = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.passesNumberDataGridView = new System.Windows.Forms.DataGridView();
-            this.elapsedTimeDataGridView = new System.Windows.Forms.DataGridView();
-            this.openUserFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.label5 = new System.Windows.Forms.Label();
-            this.filesNumberTextBox = new System.Windows.Forms.TextBox();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.passesNumberDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.elapsedTimeDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.openUserFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label5 = new System.Windows.Forms.Label();
+            this.filesNumberTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comparesNumberDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.passesNumberDataGridView)).BeginInit();
@@ -78,15 +78,15 @@ namespace ExternalSortExample
             // startCompressionToolStripMenuItem
             // 
             this.startCompressionToolStripMenuItem.Name = "startCompressionToolStripMenuItem";
-            this.startCompressionToolStripMenuItem.Size = new System.Drawing.Size(180, 25);
-            this.startCompressionToolStripMenuItem.Text = "Выполнить сравнение";
+            this.startCompressionToolStripMenuItem.Size = new System.Drawing.Size(138, 25);
+            this.startCompressionToolStripMenuItem.Text = "Протестировать";
             this.startCompressionToolStripMenuItem.Click += new System.EventHandler(this.startCompressionToolStripMenuItem_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(100, 85);
+            this.label1.Location = new System.Drawing.Point(101, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(183, 21);
             this.label1.TabIndex = 1;
@@ -96,7 +96,7 @@ namespace ExternalSortExample
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(590, 85);
+            this.label2.Location = new System.Drawing.Point(591, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(166, 21);
             this.label2.TabIndex = 3;
@@ -110,7 +110,7 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn8});
-            this.comparesNumberDataGridView.Location = new System.Drawing.Point(12, 429);
+            this.comparesNumberDataGridView.Location = new System.Drawing.Point(13, 263);
             this.comparesNumberDataGridView.Name = "comparesNumberDataGridView";
             this.comparesNumberDataGridView.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -124,149 +124,8 @@ namespace ExternalSortExample
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.comparesNumberDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.comparesNumberDataGridView.RowTemplate.Height = 25;
-            this.comparesNumberDataGridView.Size = new System.Drawing.Size(438, 291);
+            this.comparesNumberDataGridView.Size = new System.Drawing.Size(438, 172);
             this.comparesNumberDataGridView.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(12, 405);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(173, 21);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Количество сравнений";
-            // 
-            // passesNumberDataGridView
-            // 
-            this.passesNumberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.passesNumberDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn7});
-            this.passesNumberDataGridView.Location = new System.Drawing.Point(456, 109);
-            this.passesNumberDataGridView.Name = "passesNumberDataGridView";
-            this.passesNumberDataGridView.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.passesNumberDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.passesNumberDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.passesNumberDataGridView.RowTemplate.Height = 25;
-            this.passesNumberDataGridView.Size = new System.Drawing.Size(438, 291);
-            this.passesNumberDataGridView.TabIndex = 7;
-            // 
-            // elapsedTimeDataGridView
-            // 
-            this.elapsedTimeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.elapsedTimeDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12});
-            this.elapsedTimeDataGridView.Location = new System.Drawing.Point(12, 111);
-            this.elapsedTimeDataGridView.Name = "elapsedTimeDataGridView";
-            this.elapsedTimeDataGridView.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.elapsedTimeDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.elapsedTimeDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.elapsedTimeDataGridView.RowTemplate.Height = 25;
-            this.elapsedTimeDataGridView.Size = new System.Drawing.Size(438, 291);
-            this.elapsedTimeDataGridView.TabIndex = 8;
-            // 
-            // openUserFileDialog
-            // 
-            this.openUserFileDialog.FileName = "FileName";
-            this.openUserFileDialog.Filter = "Текстовые файлы(*.txt)|*.txt";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(12, 44);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(150, 21);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Количество файлов";
-            // 
-            // filesNumberTextBox
-            // 
-            this.filesNumberTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.filesNumberTextBox.Location = new System.Drawing.Point(168, 41);
-            this.filesNumberTextBox.Name = "filesNumberTextBox";
-            this.filesNumberTextBox.Size = new System.Drawing.Size(100, 29);
-            this.filesNumberTextBox.TabIndex = 12;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Кол-во элементов";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 92;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.FillWeight = 120F;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Отсортированный файл";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 120;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Случайный файл";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 92;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Обратный файл";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Width = 91;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Кол-во элементов";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 92;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 120F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Отсортированный файл";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 120;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Случайный файл";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 92;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Обратный файл";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 91;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -297,11 +156,152 @@ namespace ExternalSortExample
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
             this.dataGridViewTextBoxColumn8.Width = 91;
             // 
-            // Form1
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(101, 239);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(173, 21);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Количество сравнений";
+            // 
+            // passesNumberDataGridView
+            // 
+            this.passesNumberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.passesNumberDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn7});
+            this.passesNumberDataGridView.Location = new System.Drawing.Point(457, 62);
+            this.passesNumberDataGridView.Name = "passesNumberDataGridView";
+            this.passesNumberDataGridView.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.passesNumberDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.passesNumberDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.passesNumberDataGridView.RowTemplate.Height = 25;
+            this.passesNumberDataGridView.Size = new System.Drawing.Size(438, 174);
+            this.passesNumberDataGridView.TabIndex = 7;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Кол-во элементов";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 120F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Отсортированный файл";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Случайный файл";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Обратный файл";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 91;
+            // 
+            // elapsedTimeDataGridView
+            // 
+            this.elapsedTimeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.elapsedTimeDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12});
+            this.elapsedTimeDataGridView.Location = new System.Drawing.Point(13, 64);
+            this.elapsedTimeDataGridView.Name = "elapsedTimeDataGridView";
+            this.elapsedTimeDataGridView.ReadOnly = true;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.elapsedTimeDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.elapsedTimeDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.elapsedTimeDataGridView.RowTemplate.Height = 25;
+            this.elapsedTimeDataGridView.Size = new System.Drawing.Size(438, 172);
+            this.elapsedTimeDataGridView.TabIndex = 8;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Кол-во элементов";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.FillWeight = 120F;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Отсортированный файл";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Случайный файл";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Обратный файл";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.Width = 91;
+            // 
+            // openUserFileDialog
+            // 
+            this.openUserFileDialog.FileName = "FileName";
+            this.openUserFileDialog.Filter = "Текстовые файлы(*.txt)|*.txt";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(471, 273);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(150, 21);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Количество файлов";
+            // 
+            // filesNumberTextBox
+            // 
+            this.filesNumberTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.filesNumberTextBox.Location = new System.Drawing.Point(637, 270);
+            this.filesNumberTextBox.Name = "filesNumberTextBox";
+            this.filesNumberTextBox.Size = new System.Drawing.Size(100, 29);
+            this.filesNumberTextBox.TabIndex = 12;
+            // 
+            // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 749);
+            this.ClientSize = new System.Drawing.Size(905, 442);
             this.Controls.Add(this.filesNumberTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.elapsedTimeDataGridView);
@@ -312,8 +312,8 @@ namespace ExternalSortExample
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "External Sort Example";
+            this.Name = "TestForm";
+            this.Text = "External Sort Test";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comparesNumberDataGridView)).EndInit();
